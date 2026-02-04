@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { LogOut } from "lucide-react";
 
-export default function LogoutButton() {
+export default function LogoutButton({ collapsed }) {
   const router = useRouter();
   
   const handleLogout = async (e) => {
@@ -15,10 +15,10 @@ export default function LogoutButton() {
   return (
     <button 
       onClick={handleLogout}
-      className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-red-500/10 text-red-400 hover:text-red-300 transition-colors w-full"
+      className={`flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-red-500/10 text-red-400 hover:text-red-300 transition-colors w-full ${collapsed ? 'justify-center px-0' : ''}`}
     >
       <LogOut className="w-5 h-5" />
-      Logout
+      {!collapsed && <span>Logout</span>}
     </button>
   );
 }

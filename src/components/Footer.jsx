@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
           <div className="space-y-4">
-            <div className="relative h-30 w-84">
+            <div className="relative h-12 w-36 md:h-22 md:w-64">
                <Image 
                  src="/trustiqo-logo.png" 
                  alt="Trustiqo" 

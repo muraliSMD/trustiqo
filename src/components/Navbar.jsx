@@ -36,7 +36,7 @@ export default function Navbar() {
       <div className="container mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
         {/* Logo */}
-        <Link href="/" className="relative h-30 w-84 group">
+        <Link href="/" className="relative h-12 w-36 md:h-22 md:w-64 group">
            <Image 
              src="/trustiqo-logo.png" 
              alt="Trustiqo" 
