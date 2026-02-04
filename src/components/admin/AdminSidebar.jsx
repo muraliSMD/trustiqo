@@ -13,11 +13,6 @@ import {
   ChevronRight 
 } from "lucide-react";
 import LogoutButton from "@/components/admin/LogoutButton";
-import { cn } from "@/lib/utils"; // Assuming cn exists, if not I'll just use template strings or implement it, actually I'll stick to template strings to be safe or check imports.
-// Checking imports: standard next/react. cn is common in shadcn-like setups but user might not have it.
-// I'll stick to standard template literals + clsx if installed or conditional strings.
-// User installed clsx and tailwind-merge in the beginning.
-
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
