@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Loader2, Mail, Trash2 } from "lucide-react";
+import { Loader2, Mail, Trash2, Download } from "lucide-react";
 
 export default function QuotesPage() {
   const [quotes, setQuotes] = useState([]);
@@ -13,6 +13,7 @@ export default function QuotesPage() {
   }, []);
 
   const fetchQuotes = async () => {
+    // ... (same as before)
     try {
       const res = await fetch("/api/admin/quotes");
       const data = await res.json();
@@ -25,6 +26,7 @@ export default function QuotesPage() {
   };
 
   const handleStatusChange = async (id, newStatus) => {
+    // ... (same as before)
     setUpdating(id);
     try {
       const res = await fetch("/api/admin/quotes", {
@@ -34,7 +36,6 @@ export default function QuotesPage() {
       });
       
       if (res.ok) {
-        // Optimistic update
         setQuotes(quotes.map(q => q._id === id ? { ...q, status: newStatus } : q));
       }
     } catch (error) {
@@ -42,6 +43,37 @@ export default function QuotesPage() {
     } finally {
       setUpdating(null);
     }
+  };
+
+  const downloadCSV = () => {
+    if (quotes.length === 0) return;
+
+    // Define columns
+    const headers = ["Date", "Name", "Email", "Phone", "Service", "Message", "Status"];
+    
+    // Convert to CSV
+    const csvContent = [
+      headers.join(","),
+      ...quotes.map(q => [
+        new Date(q.date).toLocaleDateString(),
+        `"${q.name}"`, // Quote strings to handle commas
+        q.email,
+        q.phone || "",
+        `"${q.service}"`,
+        `"${(q.message || "").replace(/"/g, '""')}"`, // Escape double quotes
+        q.status
+      ].join(","))
+    ].join("\n");
+
+    // Trigger download
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", `Trustiqo_Leads_${new Date().toISOString().split('T')[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const statusColors = {
@@ -54,7 +86,16 @@ export default function QuotesPage() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-8">Leads & Quotes Management</h1>
+      <div className="flex items-center justify-between mb-8">
+        <h1 className="text-3xl font-bold">Leads & Quotes Management</h1>
+        <button 
+          onClick={downloadCSV}
+          className="flex items-center gap-2 px-4 py-2 bg-zinc-800 hover:bg-zinc-700 text-white rounded-lg border border-white/10 transition-colors"
+        >
+          <Download className="w-4 h-4" />
+          Export CSV
+        </button>
+      </div>
       
       <div className="overflow-x-auto rounded-2xl border border-white/10">
         <table className="w-full text-left bg-zinc-900">

@@ -10,7 +10,8 @@ import {
   Menu, 
   X, 
   ChevronLeft, 
-  ChevronRight 
+  ChevronRight,
+  Settings 
 } from "lucide-react";
 import LogoutButton from "@/components/admin/LogoutButton";
 import { clsx } from "clsx";
@@ -28,6 +29,7 @@ export default function AdminSidebar({ children }) {
   const navItems = [
     { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
     { href: "/admin/dashboard/quotes", label: "Leads & Quotes", icon: Users },
+    { href: "/admin/dashboard/settings", label: "Settings", icon: Settings },
   ];
 
   return (

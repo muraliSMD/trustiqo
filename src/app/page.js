@@ -17,6 +17,7 @@ import {
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactModal from "@/components/ContactModal";
+import Testimonials from "@/components/Testimonials";
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -258,6 +259,7 @@ export default function Home() {
         </div>
       </section>
 
+      <Testimonials />
       <Footer />
     </div>
   );
